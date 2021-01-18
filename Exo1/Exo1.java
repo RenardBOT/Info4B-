@@ -12,15 +12,16 @@ class MonThread2 implements Runnable{
          System.out.println("je suis le thread "+"i="+i);
       }
    }
-}
+} 
 
 public class Exo1{
    public static void main(String args[]){
-      Thread tr1 = new MonThread1();
-      tr1.start();
-      Runnable runner = new MonThread2();
-      Thread tr2 = new Thread(runner);
-      tr2.start();
-      System.out.println("Je suis le thread principal");
+      Thread arrT[] = new Thread[10];
+      for(int i = 0; i<10 ; i++)
+     {
+        arrT[i] = new MonThread1();
+        arrT[i].start();
+     } 
+      System.out.println("Je suis le thread principal ok?!!");
    }
 }
