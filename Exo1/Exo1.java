@@ -22,6 +22,6 @@ public class Exo1{
         arrT[i] = new MonThread1();
         arrT[i].start();
      } 
-      System.out.println("Je suis le thread principal! awiii");
+      System.out.println("Je suis le thread principal! ok oooo");
    }
 }
