@@ -1,7 +1,7 @@
 class MonThread1 extends Thread{
    public void run(){
       for(int i=1;i<5;i++){
-         System.out.println("je suis le thread "+"i="+i);
+         System.out.println("je suis le thread i="+i);
       }
    }
 }
@@ -9,7 +9,7 @@ class MonThread1 extends Thread{
 class MonThread2 implements Runnable{
    public void run(){
       for(int i=1;i<5;i++){
-         System.out.println("je suis le thread "+"i="+i);
+         System.out.println("je suis le thread i="+i);
       }
    }
 } 
