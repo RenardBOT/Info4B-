@@ -7,7 +7,7 @@ class Compteur extends Thread{
         int i = 0;
         while(arret == false){
             i++;
-            //System.out.println(i);
+            System.out.println(i);
         }
     }
     
