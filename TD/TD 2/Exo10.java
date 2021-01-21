@@ -23,8 +23,10 @@ public class Exo10{
     public static void main (String[] args){
         SalleAttente s = new SalleAttente(10);
 
-        Barber b = new Barber(s);
-        b.start();
+        Barber b1 = new Barber(s);
+        //Barber b2 = new Barber(s);
+        b1.start();
+        //b2.start();
 
         SimulArriveeClient simul = new SimulArriveeClient(s,25);
         simul.start();
@@ -39,7 +41,8 @@ public class Exo10{
             }catch(InterruptedException e){e.printStackTrace();}
 
         }
-        b.arret();
+        b1.arret();
+        //b2.arret();
     }
 }
 
@@ -63,7 +66,7 @@ class SalleAttente{
         this.liste = new LinkedList<Client>();
     }
 
-    public int ajouter(Client c){
+    synchronized public int ajouter(Client c){
         if(this.getTaille() < this.chaises){
             liste.addLast(c);
             notifyAll();
@@ -72,10 +75,10 @@ class SalleAttente{
         else{return -1;}
     }
 
-    public Client retirer(){
+    synchronized public Client retirer(){
 
         // Si la salle est vide, le coiffeur dort. Il attend un client. wait() ici, notify() dans ajouter(c). 
-        while (this.getTaille()==0){
+        while (this.getTaille()==0 && isOuvert){
             System.out.println("Attente ... zzz . . .");
             try{
                 wait();
