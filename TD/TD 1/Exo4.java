@@ -1,11 +1,13 @@
+/* EXO 4 du TD */
+
 class Compteur extends Thread{
-    private boolean arret = false;
+    private volatile boolean arret = false;
 
     public void run(){
         int i = 0;
         while(arret == false){
             i++;
-            System.out.println(i);
+            //System.out.println(i);
         }
     }
     
@@ -21,7 +23,7 @@ public class Exo4{
 
         //lecture
         try{
-            int touche = System.in.read();
+            Thread.sleep(Integer.parseInt(args[0]));
         }catch(Exception e){e.printStackTrace();}
         c.stopper();
         System.out.println("Fin");
