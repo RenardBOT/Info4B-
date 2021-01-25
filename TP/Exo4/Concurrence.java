@@ -37,15 +37,18 @@ class Compte{
 
 public class Concurrence {
     public static void main(String args[]){
-        Compte compte = new Compte(800000);
-        System.out.println("Le compte contient 800.000");
-        Utilisateur u1 = new Utilisateur(compte,10);
-        Utilisateur u2 = new Utilisateur(compte,50);
-        u1.start();
-        u2.start();
-        u1.join();
-        u2.join();
-        System.out.println("Le compte contient à la fin : "+compte.solde+"\nU1 possède : "+u1.solde+"\nU2 possède : "+u2.solde);
-        
+        for(int i = 1 ; i<=5 ; i++)
+        { 
+            System.out.println("ESSAI#"+i);
+            Compte compte = new Compte(800000);
+            System.out.println("Le compte contient 800.000");
+            Utilisateur u1 = new Utilisateur(compte,10);
+            Utilisateur u2 = new Utilisateur(compte,50);
+            u1.start();
+            u2.start();
+            try{u1.join();}catch(InterruptedException e){e.printStackTrace();}   
+            try{u2.join();}catch(InterruptedException e){e.printStackTrace();} 
+            System.out.println("Le compte contient à la fin : "+compte.solde+"\nU1 possède : "+u1.solde+"\nU2 possède : "+u2.solde+"\n--------------");
+        } 
     }
 }
