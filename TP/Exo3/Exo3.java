@@ -9,15 +9,15 @@ class Coureur extends Thread{
     }
 
     public void run(){
-        int n = 50; //Durée de la course
+        int n = 10000; //Durée de la course
 
         System.out.println("Thread rentrant dans la course : "+Thread.currentThread().getName());
-        for(int i=1;i<n;i++){
+        
           try{
-              Thread.sleep((int)(Math.random()*500));
+              Thread.sleep((int)(Math.random()*n));
           }
           catch(InterruptedException e){e.printStackTrace();}
-       }
+       
        System.out.println("Un thread a fini la course : "+Thread.currentThread().getName());
        this.c.ajout(Thread.currentThread().getName());
     }
@@ -34,7 +34,7 @@ class Classement{
         this.dernier = 0;
     }
 
-    public String toString(){
+    public void afficher(){
         for(int i = 0 ; i < taille ; i++){
             System.out.println("Position : "+i+" - Thread #"+rank[i]);
         }
@@ -42,6 +42,7 @@ class Classement{
 
     public synchronized void ajout(String s){
         rank[dernier] = s;
+        dernier++;
     }
 }
 
@@ -50,7 +51,9 @@ public class Exo3 {
         int participants = 5;
 
         Coureur arrT[] = new Coureur[participants];
-        Classement ranking = new Classement(participants)
+        Classement ranking = new Classement(participants);
+
+        System.out.println("DEBUT DE LA COURSE!!");
 
         for(int i = 0 ; i < participants ; i++){
             arrT[i] = new Coureur(ranking);
@@ -63,7 +66,9 @@ public class Exo3 {
             }catch(InterruptedException e){e.printStackTrace();}
         }
 
-        ranking.toString();
+        System.out.println("FIN DE LA COURSE!! Classement : ");
+
+        ranking.afficher();
         
     }
 }
