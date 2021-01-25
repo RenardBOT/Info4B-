@@ -51,7 +51,7 @@ public class Concurrence {
             u2.start();
             try{u1.join();}catch(InterruptedException e){e.printStackTrace();}   
             try{u2.join();}catch(InterruptedException e){e.printStackTrace();} 
-            System.out.println("Le compte contient à la fin : "+compte.getSolde()+"\nU1 possède : "+u1.solde+"\nU2 possède : "+u2.solde+"\n--------------");
+            System.out.println("Le compte contient à la fin : "+compte.getSolde()+"\nU1 possède : "+u1.solde+"\nU2 possède : "+u2.solde+"\n---------------");
         } 
     }
 }
