@@ -1,13 +1,12 @@
 //package TP.Exo3;
 import java.util.*;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.*;
 
 class Utilisateur extends Thread{
     public int solde;
     public Compte compte;
 
-    public int montant; // Montant à retirer 1000 fois
+    public int montant; // Montant Ã  retirer 1000 fois
 
     public Utilisateur(Compte c, int m){
         this.solde = 0;
@@ -21,9 +20,7 @@ class Utilisateur extends Thread{
 
     public void run(){
         for(int i = 0 ; i < 1000 ; i++){
-            int soldeTemporaire = compte.getSolde();
-            this.solde += this.montant;
-            this.compte.setSolde(soldeTemporaire - this.montant);
+            this.compte.retrait(this.montant);
         }
 
     }
@@ -33,9 +30,20 @@ class Compte{
     private int solde;
     Lock l = new ReentrantLock();
 
+
     public int getSolde(){return this.solde;}
     public void setSolde(int s){this.solde = s;}
-    
+
+    public int retrait(int r){
+        l.lock();
+        int res = 0;
+        if(r >= this.getSolde()){
+            this.setSolde(this.getSolde()-r);
+            res = r;
+        }
+        l.unlock();
+        return res;
+    }
 
     public Compte(int s){
         this.setSolde(s);
@@ -55,7 +63,7 @@ public class Concurrence {
             u2.start();
             try{u1.join();}catch(InterruptedException e){e.printStackTrace();}   
             try{u2.join();}catch(InterruptedException e){e.printStackTrace();} 
-            System.out.println("Le compte contient à la fin : "+compte.getSolde()+"\nU1 possède : "+u1.solde+"\nU2 possède : "+u2.solde+"\n---------------");
+            System.out.println("Le compte contient Ã  la fin : "+compte.getSolde()+"\nU1 possÃ¨de : "+u1.solde+"\nU2 possÃ¨de : "+u2.solde+"\n---------------");
         } 
     }
 }
