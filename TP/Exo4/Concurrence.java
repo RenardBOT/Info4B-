@@ -19,16 +19,19 @@ class Utilisateur extends Thread{
 
     public void run(){
         for(int i = 0 ; i < 1000 ; i++){
-            int soldeTemporaire = compte.solde;
+            int soldeTemporaire = compte.getSolde();
             this.solde += this.montant;
-            this.compte.solde = compte.solde - this.montant;
+            this.compte.setSolde(soldeTemporaire - this.montant);
         }
 
     }
 }
 
 class Compte{
-    public int solde;
+    private int solde;
+
+    public int getSolde(){return this.solde;}
+    public void setSolde(int s){this.solde = s;}
 
     public Compte(int s){
         this.solde = s;
@@ -48,7 +51,7 @@ public class Concurrence {
             u2.start();
             try{u1.join();}catch(InterruptedException e){e.printStackTrace();}   
             try{u2.join();}catch(InterruptedException e){e.printStackTrace();} 
-            System.out.println("Le compte contient à la fin : "+compte.solde+"\nU1 possède : "+u1.solde+"\nU2 possède : "+u2.solde+"\n--------------");
+            System.out.println("Le compte contient à la fin : "+compte.getSolde()+"\nU1 possède : "+u1.solde+"\nU2 possède : "+u2.solde+"\n--------------");
         } 
     }
 }
