@@ -1,5 +1,7 @@
 //package TP.Exo3;
 import java.util.*;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
 
 class Utilisateur extends Thread{
     public int solde;
@@ -29,12 +31,14 @@ class Utilisateur extends Thread{
 
 class Compte{
     private int solde;
+    Lock l = new ReentrantLock();
 
     public int getSolde(){return this.solde;}
     public void setSolde(int s){this.solde = s;}
+    
 
     public Compte(int s){
-        this.solde = s;
+        this.setSolde(s);
     }
 }
 
