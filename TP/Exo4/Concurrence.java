@@ -20,7 +20,8 @@ class Utilisateur extends Thread{
 
     public void run(){
         for(int i = 0 ; i < 1000 ; i++){
-            this.compte.retrait(this.montant);
+            int r = this.compte.retrait(this.montant);
+            this.solde += r;
         }
 
     }
@@ -37,7 +38,7 @@ class Compte{
     public int retrait(int r){
         l.lock();
         int res = 0;
-        if(r >= this.getSolde()){
+        if(r <= this.getSolde()){
             this.setSolde(this.getSolde()-r);
             res = r;
         }
@@ -63,7 +64,7 @@ public class Concurrence {
             u2.start();
             try{u1.join();}catch(InterruptedException e){e.printStackTrace();}   
             try{u2.join();}catch(InterruptedException e){e.printStackTrace();} 
-            System.out.println("Le compte contient Ã  la fin : "+compte.getSolde()+"\nU1 possÃ¨de : "+u1.solde+"\nU2 possÃ¨de : "+u2.solde+"\n---------------");
+            System.out.println("Le compte contient a  la fin : "+compte.getSolde()+"\nU1 possede : "+u1.solde+"\nU2 possede : "+u2.solde+"\n---------------");
         } 
     }
 }
